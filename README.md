@@ -36,7 +36,7 @@
 
 - Baixando imagens:
 	* Vamos baixar a imagem do python para criamos um webserver:
-	* ```docker pull python:latest```
+	  - ```docker pull python:latest```
 - Validando a imagem baixada:
 	* ```docker run -i -t --rm python:latest /bin/bash```
 	* ```run```: Comando para informar ao docker que a imagem necessita ser executada
