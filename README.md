@@ -26,35 +26,13 @@
 
 
 
-5. Criar uma imagem com o python SImple WebServer: Pegando valores da variavel de ambiente
+5. Criar uma conta no [Dockerhub](https://hub.docker.com/)
+	- Para se logar no docker via linha de comando:
+		* ``` docker login ```
 
 -------------------------------------------------------------------------------------------------------
 
 # Lab01
-
-1. Na maquina virtual Worker, crie um diretorio chamado: '/opt/webserver/';
-	- Acesse o diretorio e crie dois arquivos:
-		* Dockerfile
-		* webserver.py
-**Note:** o conteudo dos arquivos estao na pasta [Lab01](https://github.com/rafabios/docker-basics/tree/master/Lab01) 			
-
-2. Cria a primeira imagem no docker:
-	* ```docker build -t python_webserver:v1.0 .```
-	`build: ` Comando para buildar uma nova imagem
-	`-t :`    Comando para informar o nome e tag do projeto
-	`. :`	  Informa para o docker que o arquivo Dockerfile esta no mesmo diretorio de execucao
-3. Agora vamos testar a imagem criada, como o comando abaixo:
-	* ``` docker run -it --rm -e WEBSERVICE_PORT='8080' -e WEBSERVICE_NAME=' teste_rafael  ' -e WEBSERVICE_VERSION='v1.0 ' -p 8080:8080 python_webserver:v1.0```		
-	* `run`	 Comando para informar ao docker que a imagem necessita ser executada
-	* `-it` Modo interativo/tty, utilizamos para poder acessar uma sessao de console no container
-	* `--rm`  Imagem e tag de versao a ser rodado
-	* `-e` Informar variaveis de ambiente
-	* `-p 8080:8080` Cria uma porta TCP entre container e host [PORTA_DO_HOST:PORTA_DO_CONTAINER]
-	* `python_webserver:v1.0` Imagem:tag
-
-
--------------------------------------------------------------------------------------------------------
-# Lab02
 
 1. Baixando imagens:
 	* Vamos baixar a imagem do python para criamos um webserver:
@@ -66,6 +44,37 @@
 	*  ```--rm```: Apagar container e volumes apos execucao
 	*  ```python:latest``` : Imagem e tag de versao a ser rodado
 	*  ```/bin/bash``` : comando a ser executado no container
+
+-------------------------------------------------------------------------------------------------------
+
+# Lab02
+
+1. Na maquina virtual Worker, crie um diretorio chamado: '/opt/webserver/';
+	- Acesse o diretorio e crie dois arquivos:
+		* Dockerfile
+		* webserver.py
+	    * **Obs:** o conteudo dos arquivos estao na pasta [Lab01](https://github.com/rafabios/docker-basics/tree/master/Lab01) 			
+
+2. Cria a primeira imagem no docker:
+	* ```docker build -t python_webserver:v1.0 .```
+	* `build: ` Comando para buildar uma nova imagem
+	* `-t :`    Comando para informar o nome e tag do projeto
+	* `. :`	  Informa para o docker que o arquivo Dockerfile esta no mesmo diretorio de execucao
+
+3. Agora vamos testar a imagem criada, como o comando abaixo:
+	* ``` docker run -it --rm -e WEBSERVICE_PORT='8080' -e WEBSERVICE_NAME=' teste_rafael  ' -e WEBSERVICE_VERSION='v1.0 ' -p 8080:8080 python_webserver:v1.0```		
+	* `run`	 Comando para informar ao docker que a imagem necessita ser executada
+	* `-it` Modo interativo/tty, utilizamos para poder acessar uma sessao de console no container
+	* `--rm`  Imagem e tag de versao a ser rodado
+	* `-e` Informar variaveis de ambiente
+	* `-p 8080:8080` Cria uma porta TCP entre container e host [PORTA_DO_HOST:PORTA_DO_CONTAINER]
+	* `python_webserver:v1.0` Imagem:tag
+
+4. Agora vamos subir a imagem para o dockerhub: 
+``` docker tag python_webserver:v1.0 <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 
+	docker push <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0
+
+```
 
 
 
