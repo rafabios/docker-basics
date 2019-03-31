@@ -23,7 +23,7 @@ WEBSERVICE_VERSION = 'API_VERSION: ' + str(os.getenv('WEBSERVICE_VERSION'))
 HOSTNAME = 'HOSTNAME: ' + str(socket.gethostname())
 
 
-MESSAGE =  WEBSERVICE_NAME + '\n'+ WEBSERVICE_VERSION + '\n' + '\n' + '\n' + HOSTNAME
+MESSAGE =  WEBSERVICE_NAME + '\n          '+ WEBSERVICE_VERSION + '\n               ' + '\n  ' + '\n  ' + HOSTNAME
 
 
 
@@ -44,7 +44,7 @@ try:
         #Create a web server and define the handler to manage the
         #incoming request
         server = HTTPServer(('', PORT_NUMBER), myHandler)
-        print 'Iniciando o webserver na porta: ' , PORT_NUMBER
+        print 'Iniciando o webserver na porta: ' , str(PORT_NUMBER)
 
         #Wait forever for incoming htto requests
         server.serve_forever()
