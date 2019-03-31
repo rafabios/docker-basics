@@ -1,4 +1,4 @@
-# Lab0
+# Lab0 - Opcional
 
 1. Instalar o Ubuntu 16.04 (VirtualBox);
 2. Instalar o docker-ce 19.03
@@ -32,7 +32,7 @@
 
 -------------------------------------------------------------------------------------------------------
 
-# Lab01
+# Lab01 - Docker - Baixando imagens
 
 1. Baixando imagens:
 	* Vamos baixar a imagem do python para criamos um webserver:
@@ -47,7 +47,7 @@
 
 -------------------------------------------------------------------------------------------------------
 
-# Lab02
+# Lab02 - Docker - Gerenciando imagens
 
 1. Na maquina virtual Worker, crie um diretorio chamado: '/opt/webserver/';
 	- Acesse o diretorio e crie dois arquivos:
@@ -71,15 +71,30 @@
 	* `python_webserver:v1.0` Imagem:tag
 
 4. Agora vamos subir a imagem para o dockerhub: 
-``` docker tag python_webserver:v1.0 <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 
+	- ``` docker tag python_webserver:v1.0 <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 
 	docker push <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0
 
-```
+	```
 
+5. Acesse via browser o site para checa o resultado:
+	- http://IP_DO_WORKER:8080
 
 
 -------------------------------------------------------------------------------------------------------
-# Lab03
+# Lab03 - Docker - Containers
+
+1. Agora vamos acessar um container em execucao. Primeiro iremos subir um container em background:
+	-  ``` docker run --name python_webserver -d -it --rm -e WEBSERVICE_PORT='8080' -e WEBSERVICE_NAME=' teste_rafael  ' -e WEBSERVICE_VERSION='v1.0 ' -p 8080:8080 python_webserver:v1.0```
+	- `--name` Informa o nome do container
+	- `-d` Roda em modo background
+
+2. Acessar console do container:
+	- ``` docker exec -it python_webserver /bin/bash```
+	- `exec` Comando correspondendo para acessar containers em execucao
+	* ***Pressione CRTL + D para sair do container***	
+
+-------------------------------------------------------------------------------------------------------
+# Lab04 - Docker - Manutencao de espaco de disco
 
 1. Como checar espaco em disco?
 	- Verificar o arquivo de logs do docker: 
@@ -108,11 +123,14 @@
 
 
 -------------------------------------------------------------------------------------------------------
-# Lab04
+# Lab04 - Instalando o Rancher
 
-
-
-
+- Na maquina virtual worker, executar o seguinte comando:
+	* ``` docker run -d -v /var/lib/mysql:/var/lib/mysql --restart=unless-stopped -p 8080:8080 rancher/server```
+	* `-v` Parametro para manter os dados persistentes mesmo quando o container for excluido;
+	* `--restart` Politica para estrategia de restart em caso  de falhas
+		- Para mais informacoes de instalacao do Rancher, acessar o link: [Rancher 1.6 - Install](https://rancher.com/docs/rancher/v1.6/en/installing-rancher/installing-server/#single-container-bind-mount)
+		 
 
 
 
