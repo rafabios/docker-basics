@@ -52,16 +52,16 @@
 
 - Como checar espaco em disco?
 	- Verificar o arquivo de logs do docker: 
-		-```/var/log/daemon```  Em caso de problema no docker o arquivo cresce demais
+		* ```/var/log/daemon```  Em caso de problema no docker o arquivo cresce demais
 	- Verificar os logs dos containers: 
-		-```du -h /var/lib/docker/containers/*/*-json.log```    Correspondente ao docker logs <container>
+		* ```du -h /var/lib/docker/containers/*/*-json.log```    Correspondente ao docker logs <container>
 	- Verificar tamanho dos containes: 
-		-```docker system df```   Mostra tamanho de imagnes, containers e volumes
-		-```docker ps --size```   Mostra tamanho dos containers, individualmente
+		* ```docker system df```   Mostra tamanho de imagnes, containers e volumes
+		* ```docker ps --size```   Mostra tamanho dos containers, individualmente
 
 - Como apagar recursos nao usados:
 	- Apagar arquivos de log:
-		-```echo "" > Nome_do_Arquivo```    Utilizar o echo ou truncate para apagar aquivos, se utilizar o rm, o arquivo se apagado e o espaco nao sera liberado;
+		* ```echo "" > Nome_do_Arquivo```    Utilizar o echo ou truncate para apagar aquivos, se utilizar o rm, o arquivo se apagado e o espaco nao sera liberado;
 		- Exemplos:
 			```
 			echo "" > /var/log/daemon		
@@ -69,11 +69,11 @@
 			```
 
 	- Apagar imagens, volumes e containers nao utilizados pelo docker:
-		-```docker system prune```   Limpa diversos recursos do docker  
-		-```docker volume prune```   Limpa volumes nao utilizados do docker
-		-```docker image prune```    Limpa imagens nao utilizadas pelo docker
-		-```docker rmi <nome_da_imagem>```      Exclui uma imagem especifica
-		-```docker rm <nome_do_container>```    Exclui uma container espeficico
+		* ```docker system prune```   Limpa diversos recursos do docker  
+		* ```docker volume prune```   Limpa volumes nao utilizados do docker
+		* ```docker image prune```    Limpa imagens nao utilizadas pelo docker
+		* ```docker rmi <nome_da_imagem>```      Exclui uma imagem especifica
+		* ```docker rm <nome_do_container>```    Exclui uma container espeficico
 
 
 -------------------------------------------------------------------------------------------------------
