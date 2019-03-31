@@ -35,15 +35,15 @@
 # Lab02
 
 - Baixando imagens:
-	Vamos baixar a imagem do python para criamos um webserver:
-```docker pull python:latest```
+	* Vamos baixar a imagem do python para criamos um webserver:
+	* ```docker pull python:latest```
 - Validando a imagem baixada:
-```docker run -i -t --rm python:latest /bin/bash```
-	 ```run```: Comando para informar ao docker que a imagem necessita ser executada
-	 ```-i -t```: Modo interativo/tty, utilizamos para poder acessar uma sessao de console no container
-	 ```--rm```: Apagar container e volumes apos execucao
-	 ```python:latest``` : Imagem e tag de versao a ser rodado
-	 ```/bin/bash``` : comando a ser executado no container
+	* ```docker run -i -t --rm python:latest /bin/bash```
+	* ```run```: Comando para informar ao docker que a imagem necessita ser executada
+	*  ```-i -t```: Modo interativo/tty, utilizamos para poder acessar uma sessao de console no container
+	*  ```--rm```: Apagar container e volumes apos execucao
+	*  ```python:latest``` : Imagem e tag de versao a ser rodado
+	*  ```/bin/bash``` : comando a ser executado no container
 
 
 
