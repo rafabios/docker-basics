@@ -23,6 +23,7 @@
 	* Worker.vdi
 
 
+
 - Criar uma imagem com o python SImple WebServer: Pegando valores da variavel de ambiente
 
 -------------------------------------------------------------------------------------------------------
