@@ -71,7 +71,7 @@
 	* `python_webserver:v1.0` Imagem:tag
 
 4. Agora vamos subir a imagem para o dockerhub: 
-	- ``` docker tag python_webserver:v1.0 <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 
+	``` docker tag python_webserver:v1.0 <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 
 	docker push <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0
 
 	```
@@ -130,7 +130,7 @@
 	* `-v` Parametro para manter os dados persistentes mesmo quando o container for excluido;
 	* `--restart` Politica para estrategia de restart em caso  de falhas
 		- Para mais informacoes de instalacao do Rancher, acessar o link: [Rancher 1.6 - Install](https://rancher.com/docs/rancher/v1.6/en/installing-rancher/installing-server/#single-container-bind-mount)
-		 
+
 
 
 
