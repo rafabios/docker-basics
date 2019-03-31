@@ -71,10 +71,9 @@
 	* `python_webserver:v1.0` Imagem:tag
 
 4. Agora vamos subir a imagem para o dockerhub: 
-	``` docker tag python_webserver:v1.0 <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 
-	docker push <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0
+	``` docker tag python_webserver:v1.0 <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 ```
+	``` docker push <LOGIN_DO_DOCKERHUB>/python_webserver:v1.0 ```
 
-	```
 
 5. Acesse via browser o site para checa o resultado:
 	- http://IP_DO_WORKER:8080
