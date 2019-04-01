@@ -124,20 +124,47 @@
 -------------------------------------------------------------------------------------------------------
 # Lab04 - Instalando o Rancher
 
-- Na maquina virtual worker, executar o seguinte comando:
+1. Na maquina virtual worker, executar o seguinte comando:
 	* ``` docker run -d -v /var/lib/mysql:/var/lib/mysql --restart=unless-stopped -p 8080:8080 rancher/server```
 	* `-v` Parametro para manter os dados persistentes mesmo quando o container for excluido;
 	* `--restart` Politica para estrategia de restart em caso  de falhas
 		- Para mais informacoes de instalacao do Rancher, acessar o link: [Rancher 1.6 - Install](https://rancher.com/docs/rancher/v1.6/en/installing-rancher/installing-server/#single-container-bind-mount)
 
-
+2. Acesse o Rancher Server via web:
+	* **http://IP_DO_MASTER:8080**
 
 
 -------------------------------------------------------------------------------------------------------
-# Lab05
+# Lab05 - Rancher primeiras configuracoes
+
+1. Ainda no Web, iremos criar um novo envroniment:
+	- No canto superior esquerdo, clique em "Default" e em "Manage Envronments"
+	- Clique em "Add Enviroment"
+	- Em Name coloque o nome "Homol"
+	- Selecione o tipo de orquestrador "Cattle"
+
+2. Agora vamos adicionar um node (WORKER):
+	- Acesse o enviroment **"Homol"**
+	- Clique em **"INFRAESTRUTURE"** e em **"HOSTS"**
+	- Clique em **"Add Host"**
+	- Copie a saida que dever se parecida com o comando abaixo:
+``` docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.11-rc1 http://<IP_DO_MASTER>:8080/v1/scripts/F7559D8C5CE4B3A7462A:1546214400000:xZy9o4jrbLwKiHR3CC4J8HqLyqs
+```
+		* **Cole a saida no console da maquina WORKER**
+
+3. Validando se o node WORKER foi adicionado ao cluster do Rancher:
+	- Acesse novamente o browser na interface web do Rancher e clique em **HOSTS**
+	- Veja se aparecerá uma caixa com as informação do node WORKER;
+
+4. Troubleshooting:
+	- Caso nao aparece no browser o Node Worker, você pode executar os comandos abaixo para verificar a conexão:
+		* `docker ps -a | grep agent`
+	 	* `docker logs -f <ID_DO_CONTAINER>`
+	 - Com os comandos acima, é possivel verificar o porque a conexão nao esta sendo estabelecida entre os servidores virtuais				
 
 -------------------------------------------------------------------------------------------------------
-# Lab06
+# Lab06 - Rancher - Subindo o Primeiro Stack
+
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
