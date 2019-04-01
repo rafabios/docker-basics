@@ -148,9 +148,9 @@
 	- Clique em **"INFRAESTRUTURE"** e em **"HOSTS"**
 	- Clique em **"Add Host"**
 	- Copie a saida que dever se parecida com o comando abaixo:
-``` docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.11-rc1 http://<IP_DO_MASTER>:8080/v1/scripts/F7559D8C5CE4B3A7462A:1546214400000:xZy9o4jrbLwKiHR3CC4J8HqLyqs
-```
-		* **Cole a saida no console da maquina WORKER**
+		``` docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.11-rc1 http://<IP_DO_MASTER>:8080/v1/scripts/F7559D8C5CE4B3A7462A:1546214400000:xZy9o4jrbLwKiHR3CC4J8HqLyqs
+		```
+	* **Cole a saida no console da maquina WORKER**
 
 3. Validando se o node WORKER foi adicionado ao cluster do Rancher:
 	- Acesse novamente o browser na interface web do Rancher e clique em **HOSTS**
