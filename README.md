@@ -148,7 +148,8 @@
 	- Clique em **"INFRAESTRUTURE"** e em **"HOSTS"**
 	- Clique em **"Add Host"**
 	- Copie a saida que dever se parecida com o comando abaixo:
-		``` docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.11-rc1 http://<IP_DO_MASTER>:8080/v1/scripts/F7559D8C5CE4B3A7462A:1546214400000:xZy9o4jrbLwKiHR3CC4J8HqLyqs
+		``` 
+		docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.11-rc1 http://<IP_DO_MASTER>:8080/v1/scripts/F7559D8C5CE4B3A7462A:1546214400000:xZy9o4jrbLwKiHR3CC4J8HqLyqs
 		```
 	* **Cole a saida no console da maquina WORKER**
 
@@ -165,7 +166,86 @@
 -------------------------------------------------------------------------------------------------------
 # Lab06 - Rancher - Subindo o Primeiro Stack
 
+1. Vamos criar um stack webserver no WORKER com a porta 8080 aberta:
+	- Vá em **STACKS**/**USER**
+	- Cliquem em **Add Stack**
+	- Adicione as seguintes informações:
+		* Name: webserver
+		* Optional: docker-compose.yml : Coloque a info abaixo:
+		```
+		version: '2'
+		services:
+		  webserver:
+		    image: vemcompy/python_webserver:v1.0
+		    environment:
+		      WEBSERVICE_PORT: '8080'
+		      WEBSERVICE_NAME: 'WEB_SERVICE_RAFAEL'
+		      WEBSERVICE_VERSION: 'v1.0'	
+		    ports:
+		    - 8080:8080/tcp
+		 ```
+2. Valide se o stack foi criado com sucesso:
+	- Clique em stacks novamente e vá até o stack chamado **webserver**
+	- Clique no servico **webserver**
+	- Clique em **Ports**
+		* Clique no link para acessar o webserver
+
 -------------------------------------------------------------------------------------------------------
+# Lab07 - Rancher - Troubleshooting Containers
+
+1. Atualizando uma imagem (com problemas na nova versão - aplicação):
+	- Clique em **STACKS**
+	- Localize o stack chamado **webserver**, clique nele
+	- Ao lado do serviço há um botao com 3 pontos na vertical
+	- Clique nele e pressione a opção: **Upgrade**
+	- Localize o campo **Select Image**
+		* Mude a versão de v1.0 para v1.1
+		* Clique em **Upgrade**
+	- Após atualizar, o serviço irá entrar em 'crashing looping'
+		* **O comportamento apresentado é comum em situações que a API está com problemas**
+	- Clique nos 3 pontos na vertical novamente e clique em **Rollback**
+		* **Essa opção irá voltar a API para a versão v1.0		
+
+2. Atualizando uma imagem (não existente no dockerhub): 		
+	- Clique em **STACKS**
+	- Localize o stack chamado **webserver**, clique nele
+	- Ao lado do serviço há um botao com 3 pontos na vertical
+	- Clique nele e pressione a opção: **Upgrade**
+	- Localize o campo **Select Image**
+		* Mude a versão de v1.0 para v5.0
+		* Clique em **Upgrade**
+	- Após atualizar, o Rancher irá retornar uma mensagem de 'image not found'
+		* **O comportamento apresentado é comum em situações que a imagem ainda nao foi gerada ou que ocorreu erro de digitação **
+	- Clique nos 3 pontos na vertical novamente e clique em **Rollback**
+		* **Essa opção irá voltar a API para a versão v1.0		
+
+3. Criando uma imagem com problemas no secrets:
+	- Iremos criar uma imagem com secrets que nao existe:
+	- Vá em **STACKS**/**USER**
+	- Cliquem em **Add Stack**
+	- Adicione as seguintes informações:
+		* Name: webserver-secrets
+		* Optional: docker-compose.yml : Coloque a info abaixo:
+		```
+		version: '2'
+		services:
+		  webserver:
+		    image: vemcompy/python_webserver:v1.0
+		    environment:
+		      WEBSERVICE_PORT: '8080'
+		      WEBSERVICE_NAME: 'WEB_SERVICE_RAFAEL'
+		      WEBSERVICE_VERSION: 'v1.0'	
+		    ports:
+		    - 8080:8080/tcp
+		    secrets:
+		    - SECRETS_DATABASE
+		secrets:
+  		  DB_PASSWORD:
+    	   external: 'true'   
+		 ```
+	- O Rancher irá retornar que o Secrets nao foi encontrado;
+	- Remova o stack	 
+
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
