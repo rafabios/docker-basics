@@ -201,8 +201,12 @@
 	- Localize o campo **Select Image**
 		* Mude a versão de v1.0 para v1.1
 		* Clique em **Upgrade**
-	- Após atualizar, o serviço irá entrar em 'crashing looping'
+	- Após atualizar, o serviço irá entrar em 'crashing looping'	
 		* **O comportamento apresentado é comum em situações que a API está com problemas**
+	- Caso o container fique em estado de **stopped** é possivel visualizar os logs da saida do container, clicando nos 3 pontos na vertical e em **View Logs**
+		* **Caso o container reinicie mais rapido que a possibilidade de visualizar os logs: acesse o sevidor correspondente via ssh e digite os dois comandos abaixo:**
+		* ```docker ps -a | grep webserver ``` Copie o ID do container 
+		* ```docker logs <ID_DO_CONTAINER> ``` Assim é possivel ver os ultimos logs do container
 	- Clique nos 3 pontos na vertical novamente e clique em **Rollback**
 		* **Essa opção irá voltar a API para a versão v1.0		
 
@@ -239,14 +243,16 @@
 		    - 8080:8080/tcp
 		    secrets:
 		    - SECRETS_DATABASE
-		secrets:
-  		  DB_PASSWORD:
-    	   external: 'true'   
+		  secrets:
+  		   DB_PASSWORD:
+    	    external: 'true'   
 		 ```
 	- O Rancher irá retornar que o Secrets nao foi encontrado;
 	- Remova o stack	 
 
 -------------------------------------------------------------------------------------------------------
+Lab08 - Jenkins - Criando o primeiro projeto
+
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
