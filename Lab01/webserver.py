@@ -14,16 +14,51 @@
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 import os
 import socket
+import time
 
 PORT_NUMBER = int(os.getenv('WEBSERVICE_PORT'))
 
 
-WEBSERVICE_NAME = 'API_NAME: ' + str(os.getenv('WEBSERVICE_NAME'))
-WEBSERVICE_VERSION = 'API_VERSION: ' + str(os.getenv('WEBSERVICE_VERSION'))
-HOSTNAME = 'HOSTNAME: ' + str(socket.gethostname())
+WEBSERVICE_NAME = str(os.getenv('WEBSERVICE_NAME'))
+WEBSERVICE_VERSION =  str(os.getenv('WEBSERVICE_VERSION'))
+HOSTNAME = str(socket.gethostname())
+DATE     = str(time.ctime())
+
+MESSAGE = '''
+<html>
+<head><title>PYTHON WEB SERVER</title></head>
+
+<bodybgcolor="#E6E6FA">
+
+<center>
+<h1> PYTHON WEB SERVER </H1>
+
+<br><br><br><br><br>
 
 
-MESSAGE =  WEBSERVICE_NAME + '\n          '+ WEBSERVICE_VERSION + '\n               ' + '\n  ' + '\n  ' + HOSTNAME
+<br><br>
+<b>WEBSERVICE_NAME</b>    = {0}
+
+<br><br>
+
+<b>WEBSERVICE_VERSION</b> = {1}
+
+<br><br>
+
+<b>CONTAINER NAME</b>    = {2}
+
+<br><br>
+</center>
+
+<br><br><br><br><br><br><br><br><br><br><br>
+
+<b>Data</b> : {3}
+
+</body>
+</html>
+
+'''.format(WEBSERVICE_NAME, WEBSERVICE_VERSION , HOSTNAME, DATE  )
+
 
 
 
