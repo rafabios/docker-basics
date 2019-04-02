@@ -208,7 +208,7 @@
 		* ```docker ps -a | grep webserver ``` Copie o ID do container 
 		* ```docker logs <ID_DO_CONTAINER> ``` Assim é possivel ver os ultimos logs do container
 	- Clique nos 3 pontos na vertical novamente e clique em **Rollback**
-		* **Essa opção irá voltar a API para a versão v1.0		
+		* **Essa opção irá voltar a API para a versão v1.0**		
 
 2. Atualizando uma imagem (não existente no dockerhub): 		
 	- Clique em **STACKS**
@@ -219,9 +219,9 @@
 		* Mude a versão de v1.0 para v5.0
 		* Clique em **Upgrade**
 	- Após atualizar, o Rancher irá retornar uma mensagem de 'image not found'
-		* **O comportamento apresentado é comum em situações que a imagem ainda nao foi gerada ou que ocorreu erro de digitação **
+		* **O comportamento apresentado é comum em situações que a imagem ainda nao foi gerada ou que ocorreu erro de digitação**
 	- Clique nos 3 pontos na vertical novamente e clique em **Rollback**
-		* **Essa opção irá voltar a API para a versão v1.0		
+		* **Essa opção irá voltar a API para a versão v1.0**		
 
 3. Criando uma imagem com problemas no secrets:
 	- Iremos criar uma imagem com secrets que nao existe:
@@ -251,9 +251,108 @@
 	- Remova o stack	 
 
 -------------------------------------------------------------------------------------------------------
-Lab08 - Jenkins - Criando o primeiro projeto
+Lab08 - Jenkins - Instalacao e configuracao
 
+1. Iremos subir um servico do Jenkins via Rancher:
+	- Vá em **STACKS**/**USER**
+	- Cliquem em **Add Stack**	
+	- Adicione as seguintes informações:
+		* Name: Jenkins-Server
+		* Cliquem em **ok**
+	- No canto superior direito, clique em **Add Service**
+	- Preencha as informacoes abaixo:
+	* ```
+		Name: jenkins-server
+		Image: jenkins
+		Port Map:
+				80:8080/tcp
+
+		Volumes:
+				/opt/jenkins:/var/jenkins_home
+
+	```		
+	- Acesse o endereco http://IP_DO_WORKER:80 via browser
+	- A senha inicial deve estar dentro do container do Jenkins no diretorio abaixo: 
+	 * `/var/jenkins_home/secrets/initialAdminPassword`	
+	- Para acessar o container execute os comandos abaixo:
+		* `docker ps  | grep jenkins`
+	 	* `docker exec -it <ID_DO_CONTAINER> cat /var/jenkins_home/secrets/initialAdminPassword`
+
+2. Instalacao de plugins
+	- Apos definir uma nova senha para o user admin do Jenkins, devemos instalar os plugins abaixo:
+		* Git
+		* Git Client
+		* GitHub
+		* **Para instalar os plugins, va em Gerenciador do Jenkins / Gerenciar plugins e clique em disponiveis**
+
+			
 -------------------------------------------------------------------------------------------------------
+Lab09 - Jenkins - Criando o primeiro projeto
+
+1. Primeiro devemos criar um par de chaves de seguranca do Rancher
+	- Acesse o Rancher via browser
+	- Clique em API / Keys
+	- Clique em Advanced options
+	- Selecione a opcao: Add Environment API Keys
+	- Em Nome, digite Jenkins-KEY
+	- Copie os valores apresentados para um bloco de notas, iremos usar os valores a seguir
+
+
+2. Vamos subir o projeto webservice via github e integrar com o rancher via linha de comando:
+	- Volte para a pagina inicial do Jenkins
+	* Clique em **New Job**
+	* Digite em nome do projeto **webserver-python**
+	* Escolha o modelo **Free Style Project**
+	* Clique em salvar
+	- Agora dentro do projeto **webserver-python**, clique em configurar;
+	* Em Gerenciador do Codigo Fonte, clique em **GIT**
+	* Em Repository URL, digite: **https://github.com/rafabios/docker-basics.git**
+	* Em Build, selecione a opcao **Execute Shell**
+	* Na tela que ira se abrir, utilize o script abaixo:
+	```
+	# Acessar diretorio do projeto
+	cd Lab09/
+
+
+	# Criar um arquivo com as credencias do Rancher
+	cat <<EOF> rancher.cfg
+	{"accessKey":"ACESS_KEY_DO_RANCHER","secretKey":"SECRET_KEY_DO_RANCHER,"url":"http://IP_DO_MASTER:8080/v2-beta/schemas","environment":"ID_DO_AMBIENTE"}
+	EOF
+
+	# Criar uma variavel para mapear o aquivo de credenciais
+	CFG_RANCHER="rancher.cfg"
+
+
+	# Comando do rancher para subir um novo projeto 	
+	 /usr/local/bin/rancher -c $CFG_RANCHER  --file docker-compose.yml  up -d --stack "webserver-python" 
+
+	# Comando do rancher para atualizar um projeto existente 
+	# /usr/local/bin/rancher  -c $CFG_RANCHER  --file docker-compose-update.yml  up -d --stack $JOB_NAME --force-upgrade --pull --confirm-upgrade
+   
+
+	```
+	* Os campos acima sao necessarias substituicoes:
+		- ACESS_KEY_DO_RANCHER
+		- SECRET_KEY_DO_RANCHER
+		- IP_DO_MASTER
+		- ID_DO_AMBIENTE - Valor pode ser pego na url do Rancher /env/XXXX/
+	- Salve a configuracao e clique em **play**
+		* **Os status/log pode ser visto clicando em no build #1 / Saida console**
+	- Acesse o Rancher e verifique em **STACKS** se o projeto webserver-python esta disponivel
+
+3. Atualizando a versao do projeto
+	- Edite o projeto no Jenkins: wevserver-python e modifique o script conforme mostrado abaixo:
+	```
+	 # Comando do rancher para subir um novo projeto 	
+	 #/usr/local/bin/rancher -c $CFG_RANCHER  --file docker-compose.yml  up -d --stack "webserver-python" 
+
+	# Comando do rancher para atualizar um projeto existente 
+	 /usr/local/bin/rancher  -c $CFG_RANCHER  --file docker-compose-update.yml  up -d --stack $JOB_NAME --force-upgrade --pull --confirm-upgrade
+
+	```
+	* Comente a primeira linha (subir novo projeto) e descomente a linha abaixo (atualizar o projeto)
+	- Clique em play e aguarde a atualizacao
+	- Acesse o Rancher e veja se o projeto esta atualizado			
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 
