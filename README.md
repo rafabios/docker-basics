@@ -269,6 +269,7 @@ Lab08 - Jenkins - Instalacao e configuracao
 
 		Volumes:
 				/opt/jenkins:/var/jenkins_home
+				/bin/rancher:/usr/local/bin/rancher 
 
 	```		
 	- Acesse o endereco http://IP_DO_WORKER:80 via browser
@@ -283,11 +284,11 @@ Lab08 - Jenkins - Instalacao e configuracao
 		* Git
 		* Git Client
 		* GitHub
-		* **Para instalar os plugins, va em Gerenciador do Jenkins / Gerenciar plugins e clique em disponiveis**
+		 - **Para instalar os plugins, va em Gerenciador do Jenkins / Gerenciar plugins e clique em disponiveis**
 
 			
 -------------------------------------------------------------------------------------------------------
-Lab09 - Jenkins - Criando o primeiro projeto
+# Lab09 - Jenkins - Criando o primeiro projeto
 
 1. Primeiro devemos criar um par de chaves de seguranca do Rancher
 	- Acesse o Rancher via browser
