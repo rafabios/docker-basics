@@ -261,7 +261,7 @@
 		* Cliquem em **ok**
 	- No canto superior direito, clique em **Add Service**
 	- Preencha as informacoes abaixo:
-	* ```
+	- ```
 		Name: jenkins-server
 		Image: jenkins
 		Port Map:
@@ -269,9 +269,9 @@
 
 		Volumes:
 				/opt/jenkins:/var/jenkins_home
-				/bin/rancher:/usr/local/bin/rancher 
+				/bin/rancher:/usr/local/bin/rancher ```
 
-```		
+
 	- Acesse o endereco http://IP_DO_WORKER:80 via browser
 	- A senha inicial deve estar dentro do container do Jenkins no diretorio abaixo: 
 	 * `/var/jenkins_home/secrets/initialAdminPassword`	
