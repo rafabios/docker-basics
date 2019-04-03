@@ -354,7 +354,17 @@
 	* Comente a primeira linha (subir novo projeto) e descomente a linha abaixo (atualizar o projeto)
 	- Clique em play e aguarde a atualizacao
 	- Acesse o Rancher e veja se o projeto esta atualizado			
--------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+# Lab10
+
+ros config set rancher.docker.environment '[http_proxy="", https_proxy=""]'
+
+ros config set rancher.system_docker.environment '[http_proxy="", https_proxy=""]'
+
+system-docker restart docker
+
+
+------------------------
 -------------------------------------------------------------------------------------------------------
 
 
