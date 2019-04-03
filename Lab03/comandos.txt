@@ -1,0 +1,22 @@
+docker run --name python_webserver -d -it --rm -e WEBSERVICE_PORT='8080' -e WEBSERVICE_NAME=' teste_rafael  ' -e WEBSERVICE_VERSION='v1.0 ' -p 8080:8080 python_webserver:v1.0
+
+docker exec -it python_webserver /bin/bash
+
+
+
+
+#3.1
+
+docker system df
+docker ps --size
+
+
+echo "" > /var/log/daemon		
+echo "" >  /var/lib/docker/containers/f071f64633/f071f64c98dbe6a62633-json.log 
+
+
+docker system prune
+docker volume prune
+docker image prune
+docker rmi <nome_da_imagem>
+docker rm <nome_do_container
