@@ -93,7 +93,7 @@
 	* ***Pressione CRTL + D para sair do container***	
 
 -------------------------------------------------------------------------------------------------------
-# Lab04 - Docker - Manutencao de espaco de disco
+# Lab03.01 - Docker - Manutencao de espaco de disco
 
 1. Como checar espaco em disco?
 	- Verificar o arquivo de logs do docker: 
