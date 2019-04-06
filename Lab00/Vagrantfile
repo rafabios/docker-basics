@@ -1,0 +1,35 @@
+# Vagrant file
+
+# Cria duas maquinas virtuais: Master e Worker
+# No modo rede privada com acesso a internet atraves de NAT.
+# Comandos:
+# vragrant up
+# vagrant ssh <master|worker>
+
+Vagrant.configure("2") do |config|
+  config.vm.define "master" do |master|
+    master.vm.box = "ubuntu/trusty64"
+    master.vm.hostname = 'master'
+
+    master.vm.network :private_network, ip: "192.168.56.101"
+
+    master.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 1024]
+      v.customize ["modifyvm", :id, "--name", "master"]
+    end
+  end
+
+  config.vm.define "worker" do |worker|
+    master.vm.box = "ubuntu/trusty64"
+    worker.vm.hostname = 'worker'
+    
+    worker.vm.network :private_network, ip: "192.168.56.102"
+
+    worker.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 1024]
+      v.customize ["modifyvm", :id, "--name", "worker"]
+    end
+  end
+end

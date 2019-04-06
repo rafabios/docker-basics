@@ -355,11 +355,11 @@
 	- Clique em play e aguarde a atualizacao
 	- Acesse o Rancher e veja se o projeto esta atualizado			
 -------------------------------------------------------------------------------
-# Lab10
+# Lab10  - Configurando proxy no RancherOS
 
-ros config set rancher.docker.environment '[http_proxy="", https_proxy=""]'
+ros config set rancher.docker.environment '[http_proxy=, https_proxy=]'
 
-ros config set rancher.system_docker.environment '[http_proxy="", https_proxy=""]'
+ros config set rancher.system_docker.environment '[http_proxy=, https_proxy=]'
 
 system-docker restart docker
 
